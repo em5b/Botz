@@ -1,0 +1,615 @@
+--bot
+local prefix = '.'
+_G.controller = "KODMSM"
+alts = {
+    alt1 = "TestBot088",
+    alt2 = "اسم البوت", -- switch to other accounts username to add them.
+    alt3 = "اسم البوت",
+    alt4 = "اسم البوت",
+    alt5 = "اسم البوت",
+    alt6 = "اسم البوت",
+    alt7 = "اسم البوت",
+    alt8 = "اسم البوت",
+    alt9 = "اسم البوت",
+    alt10 = "اسم البوت",
+    alt11 = "اسم البوت",
+    alt12 = "اسم البوت",
+    alt13 = "اسم البوت",
+    alt14 = "اسم البوت"
+}
+local pna = _G.controller
+if pna == 'Im33mmz' or pna == 'twv93' or pna == 'sabraniun0_7'  or pna == '7zen_aldar' or pna == "KODMSM" then
+local fuckdan = game:GetService("Players")
+local getPlr = function(Name)
+    if Name:lower() == "random" then
+        return fuckdan:GetPlayers()[math.random(#fuckdan:GetPlayers())]
+    else
+        Name = Name:lower():gsub("%s", "")
+        for _, x in next, fuckdan:GetPlayers() do
+            if x.Name:lower():match(Name) then
+                return x
+            elseif x.DisplayName:lower():match("^" .. Name) then
+                return x
+            end
+        end
+    end
+end
+function r15(plr)
+    if game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+        return true
+    end
+end
+
+function getRoot(character)
+    local root = game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart') or
+        game.Players.LocalPlayer.Character:FindFirstChild('Torso') or
+        game.Players.LocalPlayer.Character:FindFirstChild('UpperTorso')
+    return root
+end
+
+function getTorso(x)
+    x = x or game.Players.LocalPlayer.Character
+    return x:FindFirstChild("Torso") or x:FindFirstChild("UpperTorso") or x:FindFirstChild("LowerTorso") or
+        x:FindFirstChild("HumanoidRootPart")
+end
+
+function getRoot(char)
+    local rootPart = game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart') or
+        game.Players.LocalPlayer.Character:FindFirstChild('Torso') or
+        game.Players.LocalPlayer.Character:FindFirstChild('UpperTorso')
+    return rootPart
+end
+if game:GetService("Players").LocalPlayer.Name == _G.controller then
+    print("9MLH HUB")
+else
+    local chatEvents = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
+    local messageDoneFiltering = chatEvents:WaitForChild("OnMessageDoneFiltering")
+        
+    function chat(msg)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
+    end
+
+    messageDoneFiltering.OnClientEvent:Connect(function(message)
+
+        local message = string.lower(message.Message or "")
+            if message == (prefix.."kick") then
+                chat("Quitting..")
+                wait(1)
+                game.Players.LocalPlayer:Kick("Quitting..")
+            elseif message == (prefix.."c") then
+                if game.Players.LocalPlayer.Name == alts.alt1 then
+                    chat("alt 1")
+                elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                    chat("alt 2")
+                elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                    chat("alt 3")
+                elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                    chat("alt 4")
+                elseif game.Players.LocalPlayer.Name == alts.alt5 then
+                    chat("alt 5")
+                elseif game.Players.LocalPlayer.Name == alts.alt6 then
+                    chat("alt 6")
+                elseif game.Players.LocalPlayer.Name == alts.alt7 then
+                    chat("alt 7")
+                elseif game.Players.LocalPlayer.Name == alts.alt8 then
+                    chat("alt 8")
+                elseif game.Players.LocalPlayer.Name == alts.alt9 then
+                    chat("alt 9")
+                elseif game.Players.LocalPlayer.Name == alts.alt10 then
+                    chat("alt 10")
+                end
+            elseif message:find("^"..prefix.."bring") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.controller].Character.HumanoidRootPart.CFrame
+            elseif string.find(tostring(message), '?to ') then
+                local String = message:gsub('?to ', '')
+                local target = getPlr(String)
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if target == v.DisplayName then
+                    target = v.Name
+                    else
+                    chat("اسم الضحية خطأ او انه خرج")
+                    end
+                end
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[target.Name].Character.HumanoidRootPart.CFrame
+            elseif string.find(tostring(message), '?moveto') then
+                local String = message:gsub('?moveto ', '')
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if String == v.DisplayName then
+                        String = v.Name
+                    end
+                end
+                if game.Players:FindFirstChild(String) then
+                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):MoveTo(game.Players[String].Character.HumanoidRootPart.Position)
+                end
+            elseif string.find(tostring(message), '?chat') then
+                local String = message:gsub('?chat ', '')
+                chat(String)
+            elseif string.find(tostring(message), '?follow') then
+                local String = message:gsub('?follow ', '')
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if String == v.DisplayName then
+                        String = v.Name
+                    end
+                end
+                _G.follow = true
+                while _G.follow == true do
+                    if game.Players:FindFirstChild(String) then
+                        game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):MoveTo(game.Players[String].Character.HumanoidRootPart.Position)
+                    else
+                        _G.follow = false
+                        chat("Player left")
+                    end
+                    task.wait()
+                end
+            elseif string.find(tostring(message), '?execute') then
+                local String = message:gsub('?execute ', '')
+    
+                if loadfile then
+                    loadfile(String)()
+                else
+                    chat("Your executor does not support loadfile, this means you can't use this command.")
+                end
+            elseif message == (prefix.."unfollow") then
+                _G.follow = false
+            elseif string.find(tostring(message), '?orbitspeed') then
+                local String = message:gsub('?orbitspeed ', '')
+                getgenv().orbitspeed = String
+            elseif string.find(tostring(message), '?bangspeed') then
+                local String = message:gsub('?bangspeed ', '')
+                getgenv().bangd = String
+            elseif string.find(tostring(message), '?orbitradius') then
+                local String = message:gsub('?orbitradius ', '')
+                getgenv().orbitradius = String
+            elseif string.find(tostring(message), '?orbit') then
+                local String = message:gsub('?orbit ', '')
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if String == v.DisplayName then
+                        String = v.Name
+                    end
+                end
+                local speed = getgenv().orbitspeed
+                local radius = getgenv().orbitradius
+                local eclipse = 1
+                local rotation = CFrame.Angles(0,0,0)
+    
+    
+                local sin, cos = math.sin, math.cos
+                local rotspeed = math.pi*2/speed
+                eclipse = eclipse * radius
+                local runservice = game:GetService('RunService')
+    
+    
+                local rot = 0
+                if getgenv().orbitspeed == nil then
+                    do end
+                else
+                    if getgenv().orbitradius == nil then
+                        do end
+                    else
+                        ORBIT = game:GetService('RunService').Stepped:connect(function(t, dt)
+                            if game.Players:FindFirstChild(String) then
+                                rot = rot + dt * rotspeed
+                                game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = rotation * CFrame.new(sin(rot)*eclipse, 0, cos(rot)*radius) + game.Players[String].Character.HumanoidRootPart.Position
+                            else
+                                ORBIT:Disconnect()
+                            end
+                        end)
+                    end
+                end
+            elseif message == (prefix.."unorbit") then
+                ORBIT:Disconnect()
+            elseif message == (prefix.."fling") then
+                a = Instance.new("BodyAngularVelocity", game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")); 
+                a.AngularVelocity = Vector3.new(0, 1000, 0); 
+                a.MaxTorque = Vector3.new(0,math.huge,0); 
+                a.P = 1250
+                a.Name = "Fling"
+            elseif message == (prefix.."unfling") then
+                for i,v in pairs(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"):GetChildren()) do
+                    if v.Name == "Fling" then
+                        v:Destroy()
+                    end
+                end
+            elseif message == (prefix.."lineup") then
+                if game.Players.LocalPlayer.Name == alts.alt1 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(4, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(8, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(12, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(16, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt5 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(20, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt6 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(24, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt7 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(28, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt8 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(32, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt9 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(36, 0, 0)
+                elseif game.Players.LocalPlayer.Name == alts.alt10 then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[_G.controller].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(40, 0, 0)
+                end
+            elseif message == (prefix.."rejoin") then
+                chat("Rejoining..")
+                wait(1)
+                local ts = game:GetService("TeleportService")
+                ts:Teleport(game.PlaceId, lp)
+            elseif message == (prefix.."r6") then
+                local args = {
+                    [1] = "/morph me d"
+                }
+        
+                game:GetService("ReplicatedStorage"):WaitForChild("HDAdminClient"):WaitForChild("Signals"):WaitForChild(
+                    "RequestCommand"):InvokeServer(unpack(args))
+                local args = {
+                    [1] = "/morph me noob1"
+                }
+        
+                game:GetService("ReplicatedStorage"):WaitForChild("HDAdminClient"):WaitForChild("Signals"):WaitForChild(
+                    "RequestCommand"):InvokeServer(unpack(args))
+                local args = {
+                    [1] = "/char me wehightrhueriugjrwefresystrhdtuytfyudtyu"
+                }
+                wait(.12)
+                game:GetService("ReplicatedStorage"):WaitForChild("HDAdminClient"):WaitForChild("Signals"):WaitForChild(
+                    "RequestCommand"):InvokeServer(unpack(args))
+                wait(.9)
+                local args = {
+                    [1] = "/unchar"
+                }
+        
+                game:GetService("ReplicatedStorage"):WaitForChild("HDAdminClient"):WaitForChild("Signals"):WaitForChild(
+                    "RequestCommand"):InvokeServer(unpack(args))
+                wait(1.3)
+        
+                local plqlcwijfr = game.Players.LocalPlayer
+                if plqlcwijfr.Character:FindFirstChild('ROBLOXCap') then
+                    local args = {
+                        [1] = "/unchar"
+                    }
+        
+                    game:GetService("ReplicatedStorage"):WaitForChild("HDAdminClient"):WaitForChild("Signals"):WaitForChild(
+                        "RequestCommand"):InvokeServer(unpack(args))
+                    wait()
+                end
+                wait(1)
+            elseif message == (prefix.."jump") then
+                game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+            elseif message == (prefix.."reset") then
+                game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = 0
+            elseif message == (prefix.."forcereset") then
+                game.Players.LocalPlayer.Character:WaitForChild("Head"):Destroy()
+                game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = 0
+                game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"):Destroy()
+            elseif message == (prefix.."sit") then
+                game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+            elseif message == (prefix.."credits") then
+                chat("Made by hologram#(1337")
+            elseif message == (prefix.."dance1") then
+                game:GetService("Players"):Chat("/e dance1")
+            elseif message == (prefix.."dance2") then
+                game:GetService("Players"):Chat("/e dance2")
+            elseif message == (prefix.."dance3") then
+                game:GetService("Players"):Chat("/e dance3")
+            elseif message == (prefix.."wave") then
+                game:GetService("Players"):Chat("/e wave")
+            elseif message == (prefix.."laugh") then
+                game:GetService("Players"):Chat("/e laugh")
+            elseif message == (prefix.."spin") then
+                a = Instance.new("BodyAngularVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart); 
+                a.AngularVelocity = Vector3.new(0, 100, 0); 
+                a.MaxTorque = Vector3.new(0,math.huge,0); 
+                a.P = 1250
+                a.Name = "Spin"
+            elseif message == (prefix.."rj") then
+                local ts = game:GetService("TeleportService")
+
+                local p = game:GetService("Players").LocalPlayer
+                
+                 
+                
+                ts:Teleport(game.PlaceId, p)
+            elseif message == (prefix.."unspin") then
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"):FindFirstChild("Spin") then
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Spin:Destroy()
+                end
+            elseif string.find(tostring(message), '?wings') then
+                local String = message:gsub('?wings ', '')
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if String == v.DisplayName then
+                        String = v.Name
+                    end
+                end
+                wtf = Instance.new("Part", game.Workspace)
+                wtf.Name = "aaa"
+                wtf.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+                wtf.Transparency = 1
+    
+                wait(0.1)
+                if game.Players.LocalPlayer.Name == alts.alt1 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(2, 2, 2)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(-2, 2, 2)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(4, 4, 4)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(-4, 4, 4)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt5 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(6, 6, 6)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt6 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(-6, 6, 6)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt7 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(8, 8, 8)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt8 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(-8, 8, 8)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt9 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(10, 10, 10)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt10 then
+                    _G.wings = true
+                    while _G.wings == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(-10, 10, 10)
+                        game.Workspace.aaa.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                end
+            elseif message == (prefix.."nowings") then
+                _G.wings = false
+                for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "aaa" then
+                        v:Destroy()
+                    end
+                end
+            elseif string.find(tostring(message), '?stackup') then
+                local String = message:gsub('?stackup ', '')
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if String == v.DisplayName then
+                        String = v.Name
+                    end
+                end
+                wtf = Instance.new("Part", game.Workspace)
+                wtf.Name = "aab"
+                wtf.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+                wtf.Transparency = 1
+    
+                if game.Players.LocalPlayer.Name == alts.alt1 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 15, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 20, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt5 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt6 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt7 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 35, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt8 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 40, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt9 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 45, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                elseif game.Players.LocalPlayer.Name == alts.alt10 then
+                    _G.stack = true
+                    while _G.stack == true do
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[String].Character.HumanoidRootPart.CFrame * CFrame.new(0, 50, 0)
+                        game.Workspace.aab.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -3.6, 0)
+                        task.wait()
+                    end
+                end
+            elseif message == (prefix.."nostack") then
+                _G.stack = false
+                for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "aab" then
+                        v:Destroy()
+                    end
+                end
+            elseif string.find(tostring(message), '?flood') then
+                local String = message:gsub('?flood ', '')
+                _G.flood = true
+                while _G.flood == true do
+                    chat(String)
+                    task.wait(0.05)
+                end
+            elseif message == (prefix.."noflood") then
+                _G.flood = false
+            elseif string.find(tostring(message), prefix..'bang ') then
+                local String = message:gsub(prefix..'bang ', '')
+                Username = String
+                local target = getPlr(Username)
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if target == v.DisplayName then
+                        target = v.Name
+                    end
+                end
+                local Players = game:GetService("Players")
+                local RunService = game:GetService("RunService")
+                local plr = game.Players.LocalPlayer
+                local char = plr.Character
+                fuckspeedValue = getgenv().bangd
+                speed = fuckspeedValue
+    
+                if speed == nil then
+                    speed = 10
+                end
+                Username = target.Name
+                local Target = getPlr(Username)
+                bangAnim = Instance.new("Animation")
+                if not r15(game.Players.LocalPlayer) then
+                    bangAnim.AnimationId = "rbxassetid://148840371"
+                else
+                    bangAnim.AnimationId = "rbxassetid://5918726674"
+                end
+                bang = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(bangAnim)
+                bang:Play(.1, 1, 1)
+                if speed then
+                    bang:AdjustSpeed(speed)
+                else
+                    bang:AdjustSpeed(3)
+                end
+                local bangplr = Target.Name
+                bangDied = game.Players.LocalPlayer.Character:FindFirstChildOfClass 'Humanoid'.Died:Connect(function()
+                    bangLoop = bangLoop:Disconnect()
+                    bang:Stop()
+                    bangAnim:Destroy()
+                    bangDied:Disconnect()
+                end)
+                local bangOffet = CFrame.new(0, 0, 1.1)
+                bangLoop = RunService.Stepped:Connect(function()
+                    pcall(function()
+                        local otherRoot = getTorso(game.Players[bangplr].Character)
+                        getRoot(game.Players.LocalPlayer.Character).CFrame = otherRoot.CFrame * bangOffet
+                    end)
+                end)
+            elseif message == (prefix.."unbang") then
+                if bangLoop then
+                    bangLoop = bangLoop:Disconnect()
+                    bang:Stop()
+                    bangAnim:Destroy()
+                    bangDied:Disconnect()
+                end
+            elseif string.find(tostring(message), '?slur') then
+                local String = message:gsub('?slur ', '')
+                if String == "1" then
+                    if game.Players.LocalPlayer.Name == alts.alt1 then
+                        chat("F")
+                    elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                        chat("U")
+                    elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                        chat("C")
+                    elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                        chat("K")
+                    end
+                elseif String == "2" then
+                    if game.Players.LocalPlayer.Name == alts.alt1 then
+                        chat("S")
+                    elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                        chat("T")
+                    elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                        chat("F")
+                    elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                        chat("U")
+                    end
+                elseif String == "3" then
+                    if game.Players.LocalPlayer.Name == alts.alt1 then
+                        chat("P")
+                    elseif game.Players.LocalPlayer.Name == alts.alt2 then
+                        chat("U")
+                    elseif game.Players.LocalPlayer.Name == alts.alt3 then
+                        chat("SS")
+                    elseif game.Players.LocalPlayer.Name == alts.alt4 then
+                        chat("Y")
+                    end
+                end
+            elseif message == (prefix.."removewhite") then
+                chat("Removing white screen, This might make you really lag.")
+                game:GetService("RunService"):Set3dRenderingEnabled(true)
+            elseif message == (prefix.."restorewhite") then
+                chat("Making the screen white again.")
+                game:GetService("RunService"):Set3dRenderingEnabled(false)
+            end
+    end)
+    
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "9MLH Alt Control";
+        Text = "تم!";
+        Icon = ""; 
+        Duration = 5;
+    })
+end
+else
+    game.Players.LocalPlayer:Kick("ممنوع")
+end
